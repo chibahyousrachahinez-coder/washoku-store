@@ -43,7 +43,7 @@ function initCherryBlossoms() {
 function productCardHTML(product, inWishlist = false) {
   const badgeHTML = product.badge ? `<span class="product-card__badge ${product.badgeClass}">${product.badge}</span>` : '';
   const wishClass = inWishlist ? 'product-card__wishlist--active' : '';
-  const stars = 'â˜…'.repeat(Math.floor(product.rating)) + (product.rating % 1 >= 0.5 ? 'Â½' : '');
+  const stars = '★'.repeat(Math.floor(product.rating)) + (product.rating % 1 >= 0.5 ? '½' : '');
   return `
     <div class="product-card" data-id="${product.id}" data-category="${product.category}">
       <div class="product-card__image">
@@ -101,9 +101,9 @@ function renderReviews() {
           <div class="review-card__date">${r.date}</div>
         </div>
       </div>
-      <div class="review-card__rating">${'â˜…'.repeat(r.rating)}${'â˜†'.repeat(5 - r.rating)}</div>
+      <div class="review-card__rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
       <p class="review-card__text">"${r.text}"</p>
-      <span class="review-card__product">â€” ${r.product}</span>
+      <span class="review-card__product">— ${r.product}</span>
     </div>`).join('');
 }
 
@@ -186,7 +186,7 @@ function renderWishlist() {
 function openProductModal(id) {
   const p = products.find(pr => pr.id === id);
   if (!p) return;
-  const stars = 'â˜…'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? 'Â½' : '');
+  const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : '');
   const badgeHTML = p.badge ? `<span class="product-modal__badge ${p.badgeClass}">${p.badge}</span>` : '';
   const optionsHTML = p.options.length > 1 ? `
     <div class="product-modal__options">
@@ -206,7 +206,7 @@ function openProductModal(id) {
       <p class="product-modal__desc">${p.description}</p>
       ${optionsHTML}
       <button class="btn btn--primary product-modal__add" data-id="${p.id}" style="width:100%;justify-content:center">
-        <i class="fas fa-shopping-bag"></i> Add to Cart â€” $${p.price.toFixed(2)}
+        <i class="fas fa-shopping-bag"></i> Add to Cart — $${p.price.toFixed(2)}
       </button>
     </div>`;
   $('#productModal').classList.add('product-modal--active');
@@ -449,29 +449,29 @@ function init() {
       state.promoApplied = true;
       state.promoDiscount = 0.10;
       saveState();
-      showToast('ðŸŽ‰', 'Promo code applied! 10% off!');
+      showToast('🎉', 'Promo code applied! 10% off!');
       renderCart();
     } else if (code === 'matcha20') {
       state.promoApplied = true;
       state.promoDiscount = 0.20;
       saveState();
-      showToast('ðŸŽ‰', 'Promo code applied! 20% off!');
+      showToast('🎉', 'Promo code applied! 20% off!');
       renderCart();
     } else {
-      showToast('ðŸ˜…', 'Invalid promo code. Try "SAKURA10"');
+      showToast('😅', 'Invalid promo code. Try "SAKURA10"');
     }
   });
 
   // ===== CONTACT FORM =====
   $('#contactForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    showToast('ðŸ“¬', 'Message sent! We\'ll respond within 24 hours.');
+    showToast('📬', 'Message sent! We\'ll respond within 24 hours.');
     $('#contactForm').reset();
   });
 
-  console.log('ðŸ¥¢ Washoku Store loaded! ðŸŽ‰');
-  console.log('ðŸŒ¸ Use Ctrl+K to search');
-  console.log('ðŸµ Promo code: SAKURA10');
+  console.log('🥢 Washoku Store loaded! 🎉');
+  console.log('🌸 Use Ctrl+K to search');
+  console.log('🍵 Promo code: SAKURA10');
 }
 
 document.addEventListener('DOMContentLoaded', init);
