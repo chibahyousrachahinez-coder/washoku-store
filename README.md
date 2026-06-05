@@ -4,7 +4,7 @@
 An elegant, modern, and high-performance e-commerce frontend interface dedicated to traditional Japanese kitchenware and artisan crafts. This project is built entirely using vanilla technologies, focusing on clean architecture, semantic markup, and a fully interactive user experience.
 
 🎨 **Live Demo:**
-
+https://chibahyousrachahinez-coder.github.io/washoku-store/
 ---
 
 ## ✨ Features
@@ -37,3 +37,9 @@ An elegant, modern, and high-performance e-commerce frontend interface dedicated
     ├── data.js       # Hardcoded mock artisan data structures (products & reviews)
     ├── store.js      # Global application state management (cart, wishlist, storage)
     └── app.js        # DOM references, event listeners, and UI rendering logic
+
+
+https://github.com/user-attachments/assets/6221d02a-b27e-4345-a3ef-f68842d31ef7
+
+
+
