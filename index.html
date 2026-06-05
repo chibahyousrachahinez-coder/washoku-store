@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Washoku Store — Japanese Kitchen, Delivered to Your Door</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Noto+Serif+JP:wght@400;500;600;700;900&family=Shippori+Mincho:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Free Shipping Banner -->
+  <div class="shipping-banner" id="shippingBanner">
+    <div class="shipping-banner__content">
+      <i class="fas fa-truck"></i>
+      <span>Free shipping on orders over $50!</span>
+      <button class="shipping-banner__close" id="closeBanner"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="nav__logo">
+        <i class="fas fa-store nav__logo-icon"></i>
+        <span class="nav__logo-text">Washoku Store</span>
+      </a>
+      <div class="nav__menu" id="navMenu">
+        <ul class="nav__list">
+          <li><a href="#home" class="nav__link active-link">Home</a></li>
+          <li><a href="#shop" class="nav__link">Shop</a></li>
+          <li><a href="#story" class="nav__link">Our Story</a></li>
+          <li><a href="#contact" class="nav__link">Contact</a></li>
+          <li><a href="https://washokustore.example.com" class="nav__link" target="_blank" rel="noopener">Website</a></li>
+        </ul>
+      </div>
+      <div class="nav__actions">
+        <button class="nav__action-btn" id="searchToggle" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="nav__action-btn" id="themeToggle" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="nav__action-btn" id="wishlistToggle" aria-label="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="nav__badge" id="wishlistCount">0</span>
+        </button>
+        <button class="nav__action-btn" id="cartToggle" aria-label="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="nav__badge" id="cartCount">0</span>
+        </button>
+        <button class="nav__toggle" id="navToggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="nav__overlay" id="navOverlay"></div>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay__container">
+      <button class="search-overlay__close" id="searchClose"><i class="fas fa-times"></i></button>
+      <div class="search-overlay__inner">
+        <div class="search-box">
+          <i class="fas fa-search search-box__icon"></i>
+          <input type="text" class="search-box__input" id="searchInput" placeholder="Search products..." autofocus>
+          <button class="search-box__clear" id="searchClear"><i class="fas fa-times-circle"></i></button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar__content">
+      <div class="cart-sidebar__header">
+        <h3>Your Cart <span id="cartItemCount">(0)</span></h3>
+        <button class="cart-sidebar__close" id="cartClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="cart-sidebar__items" id="cartItems">
+        <div class="cart-empty">
+          <i class="fas fa-shopping-bag"></i>
+          <p>Your cart is empty</p>
+          <span>Add some Japanese kitchen essentials!</span>
+        </div>
+      </div>
+      <div class="cart-sidebar__footer" id="cartFooter">
+        <div class="cart-sidebar__promo">
+          <input type="text" id="promoCode" placeholder="Promo code">
+          <button id="applyPromo">Apply</button>
+        </div>
+        <div class="cart-sidebar__subtotal">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">$0.00</span>
+        </div>
+        <div class="cart-sidebar__shipping">
+          <span>Shipping</span>
+          <span id="cartShipping">$5.99</span>
+        </div>
+        <div class="cart-sidebar__total">
+          <span>Total</span>
+          <span id="cartTotal">$0.00</span>
+        </div>
+        <button class="btn btn--primary cart-sidebar__checkout">
+          <i class="fas fa-lock"></i> Secure Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wishlist Sidebar -->
+  <div class="wishlist-sidebar" id="wishlistSidebar">
+    <div class="wishlist-sidebar__overlay" id="wishlistOverlay"></div>
+    <div class="wishlist-sidebar__content">
+      <div class="wishlist-sidebar__header">
+        <h3>Your Wishlist <span id="wishlistItemCount">(0)</span></h3>
+        <button class="wishlist-sidebar__close" id="wishlistClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="wishlist-sidebar__items" id="wishlistItems">
+        <div class="cart-empty">
+          <i class="fas fa-heart"></i>
+          <p>Your wishlist is empty</p>
+          <span>Save items you love!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail Modal -->
+  <div class="product-modal" id="productModal">
+    <div class="product-modal__overlay" id="productModalOverlay"></div>
+    <div class="product-modal__content">
+      <button class="product-modal__close" id="productModalClose"><i class="fas fa-times"></i></button>
+      <div class="product-modal__body" id="productModalBody"></div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- ===== HOME ===== -->
+    <section class="home section" id="home">
+      <div class="cherry-blossoms" id="cherryBlossoms"></div>
+      <div class="home__container container">
+        <div class="home__data">
+          <span class="home__subtitle">Authentic Japanese Kitchenware</span>
+          <h1 class="home__title">
+            Bring the art of <br>
+            <span class="home__title-emphasis">Japanese cooking</span> <br>
+            into your home
+          </h1>
+          <p class="home__description">
+            Discover handcrafted knives, elegant tableware, and traditional cookware — 
+            each piece tells a story of centuries-old Japanese craftsmanship.
+          </p>
+          <div class="home__buttons">
+            <a href="#shop" class="btn btn--primary">Shop Collection <i class="fas fa-arrow-right"></i></a>
+            <a href="#story" class="btn btn--outline">Our Story</a>
+          </div>
+          <div class="home__stats">
+            <div class="home__stat">
+              <span class="home__stat-number">200+</span>
+              <span class="home__stat-label">Artisan Products</span>
+            </div>
+            <div class="home__stat">
+              <span class="home__stat-number">15k+</span>
+              <span class="home__stat-label">Happy Customers</span>
+            </div>
+            <div class="home__stat">
+              <span class="home__stat-number">4.9</span>
+              <span class="home__stat-label">Avg Rating ★</span>
+            </div>
+          </div>
+        </div>
+        <div class="home__visual">
+          <div class="home__image-wrapper">
+            <div class="home__image-placeholder">
+              <span class="home__image-emoji">🏮</span>
+              <div class="home__floating-items">
+                <span class="home__float-item" style="top:10%;left:10%;animation-delay:0s">🍜</span>
+                <span class="home__float-item" style="top:20%;right:15%;animation-delay:0.5s">🍵</span>
+                <span class="home__float-item" style="bottom:25%;left:5%;animation-delay:1s">🥟</span>
+                <span class="home__float-item" style="bottom:15%;right:10%;animation-delay:1.5s">🍶</span>
+                <span class="home__float-item" style="top:40%;left:30%;animation-delay:2s">🗾</span>
+                <span class="home__float-item" style="bottom:40%;right:25%;animation-delay:0.8s">🌸</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wave-divider">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+          <path d="M0,50 C320,100 720,0 1440,50 L1440,100 L0,100 Z" fill="var(--color-bg)"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== FEATURED PRODUCTS ===== -->
+    <section class="featured section" id="featured">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__tag">Featured</span>
+          <h2 class="section__title">Bestselling <span class="section__title-jp">Kitchen Essentials</span></h2>
+          <p class="section__subtitle">Handpicked favorites from our collection</p>
+        </div>
+        <div class="featured__carousel" id="featuredCarousel">
+          <button class="carousel__btn carousel__btn--prev" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
+          <div class="carousel__track" id="carouselTrack"></div>
+          <button class="carousel__btn carousel__btn--next" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="bamboo-divider">
+        <span class="bamboo-segment"></span>
+        <span class="bamboo-segment"></span>
+        <span class="bamboo-segment"></span>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="categories section" id="categories">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__tag">Categories</span>
+          <h2 class="section__title">Shop by <span class="section__title-jp">Category</span></h2>
+          <p class="section__subtitle">Find exactly what you need</p>
+        </div>
+        <div class="categories__grid" id="categoriesGrid"></div>
+      </div>
+      <div class="wave-divider wave-divider--flip">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+          <path d="M0,50 C320,100 720,0 1440,50 L1440,100 L0,100 Z" fill="var(--color-bg)"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== WHY JAPANESE KITCHEN ===== -->
+    <section class="why section" id="why">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__tag">Why Washoku</span>
+          <h2 class="section__title">Why a <span class="section__title-jp">Japanese Kitchen?</span></h2>
+          <p class="section__subtitle">More than just tools — a philosophy of cooking</p>
+        </div>
+        <div class="why__grid">
+          <div class="why__card">
+            <div class="why__icon">🗡️</div>
+            <h3 class="why__title">Unparalleled Craftsmanship</h3>
+            <p class="why__text">Each piece is forged by master artisans using techniques refined over generations. Japanese knives are sharpened to 15-17 degrees for precision cuts.</p>
+          </div>
+          <div class="why__card">
+            <div class="why__icon">🎋</div>
+            <h3 class="why__title">Natural Materials</h3>
+            <p class="why__text">From hinoki wood cutting boards to ceramic tea sets, we source only the finest natural materials that age beautifully with use.</p>
+          </div>
+          <div class="why__card">
+            <div class="why__icon">🍵</div>
+            <h3 class="why__title">Mindful Cooking Ritual</h3>
+            <p class="why__text">Japanese kitchen tools transform cooking from a chore into a meditative practice. Every cut, every pour becomes an act of mindfulness.</p>
+          </div>
+          <div class="why__card">
+            <div class="why__icon">♻️</div>
+            <h3 class="why__title">Built to Last Generations</h3>
+            <p class="why__text">We believe in buying once and buying well. Our products are designed to be passed down, reducing waste and honoring the craft.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bamboo-divider">
+        <span class="bamboo-segment"></span>
+        <span class="bamboo-segment"></span>
+        <span class="bamboo-segment"></span>
+      </div>
+    </section>
+
+    <!-- ===== SHOP ===== -->
+    <section class="shop section" id="shop">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__tag">Shop</span>
+          <h2 class="section__title">Our <span class="section__title-jp">Collection</span></h2>
+          <p class="section__subtitle">Explore authentic Japanese kitchenware</p>
+        </div>
+        <div class="shop__filters" id="shopFilters">
+          <button class="shop__filter-btn active" data-filter="all">All</button>
+          <button class="shop__filter-btn" data-filter="knives">🗡️ Knives</button>
+          <button class="shop__filter-btn" data-filter="cookware">🍳 Cookware</button>
+          <button class="shop__filter-btn" data-filter="tableware">🍶 Tableware</button>
+          <button class="shop__filter-btn" data-filter="tea">🍵 Tea Sets</button>
+          <button class="shop__filter-btn" data-filter="accessories">🎋 Accessories</button>
+        </div>
+        <div class="shop__grid" id="shopGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== REVIEWS ===== -->
+    <section class="reviews section" id="reviews">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__tag">Reviews</span>
+          <h2 class="section__title">What Our <span class="section__title-jp">Customers Say</span></h2>
+        </div>
+        <div class="reviews__grid" id="reviewsGrid"></div>
+      </div>
+      <div class="bamboo-divider">
+        <span class="bamboo-segment"></span>
+        <span class="bamboo-segment"></span>
+        <span class="bamboo-segment"></span>
+      </div>
+    </section>
+
+    <!-- ===== OUR STORY ===== -->
+    <section class="story section" id="story">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__tag">Our Story</span>
+          <h2 class="section__title">Crafted in Japan. <span class="section__title-jp">Loved Worldwide.</span></h2>
+          <p class="section__subtitle">The journey of Washoku Store</p>
+        </div>
+        <div class="story__content">
+          <div class="story__text">
+            <p>Washoku Store was born from a simple belief: <strong>the right tools transform cooking from routine into ritual.</strong></p>
+            <p>Our founder, Yuki Tanaka, grew up in Kyoto surrounded by the clatter of wooden geta sandals on stone paths, the whisper of bamboo in the wind, and the sharp, clean scent of a well-used kitchen knife. After traveling the world and seeing how people connected through food, she realized that Japanese kitchenware wasn't just functional — it was <strong>a bridge between tradition and everyday life.</strong></p>
+            <p>Today, we partner directly with family-owned workshops across Japan — from the knife district of Sakai to the pottery villages of Mashiko — to bring you pieces that carry the <strong>soul of Japanese craftsmanship.</strong></p>
+            <p>Every product we sell is <strong>hand-selected, tested in real kitchens, and shipped with care.</strong> We're not just selling kitchen tools — we're inviting you into a way of cooking that honors ingredients, respects tradition, and finds joy in every meal.</p>
+          </div>
+          <div class="story__timeline">
+            <div class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <span class="timeline__year">2018</span>
+                <p class="timeline__text">Yuki visits Sakai knife workshops, discovers forgotten artisan techniques.</p>
+              </div>
+            </div>
+            <div class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <span class="timeline__year">2019</span>
+                <p class="timeline__text">Washoku Store founded with 12 handpicked products. First 100 customers in one month.</p>
+              </div>
+            </div>
+            <div class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <span class="timeline__year">2021</span>
+                <p class="timeline__text">Partnership with 15 artisan families across Japan. Featured in Food & Wine magazine.</p>
+              </div>
+            </div>
+            <div class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <span class="timeline__year">2024</span>
+                <p class="timeline__text">15,000+ happy customers worldwide. Opening first physical showroom in San Francisco.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wave-divider">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+          <path d="M0,50 C320,100 720,0 1440,50 L1440,100 L0,100 Z" fill="var(--color-bg)"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact section" id="contact">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__tag">Contact</span>
+          <h2 class="section__title">Get in <span class="section__title-jp">Touch</span></h2>
+          <p class="section__subtitle">We'll respond within 24 hours</p>
+        </div>
+        <div class="contact__container">
+          <form class="contact__form" id="contactForm">
+            <div class="contact__form-row">
+              <div class="contact__form-group">
+                <label for="contactName">Your Name</label>
+                <input type="text" id="contactName" required placeholder="Yuki Tanaka">
+              </div>
+              <div class="contact__form-group">
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" required placeholder="hello@example.com">
+              </div>
+            </div>
+            <div class="contact__form-group">
+              <label for="contactSubject">Subject</label>
+              <input type="text" id="contactSubject" required placeholder="How can we help?">
+            </div>
+            <div class="contact__form-group">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" required rows="5" placeholder="Tell us what's on your mind..."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary contact__submit">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+          <div class="contact__info">
+            <div class="contact__info-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h4>Email</h4>
+                <p>hello@washokustore.com</p>
+              </div>
+            </div>
+            <div class="contact__info-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <h4>Phone</h4>
+                <p>+1 (555) 123-4567</p>
+              </div>
+            </div>
+            <div class="contact__info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h4>Location</h4>
+                <p>Kyoto, Japan — San Francisco, USA</p>
+              </div>
+            </div>
+            <div class="contact__info-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <h4>Response Time</h4>
+                <p>Within 24 hours</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__brand">
+          <div class="footer__logo">
+            <span class="footer__logo-icon">🥢</span>
+            <span class="footer__logo-text">Washoku Store</span>
+          </div>
+          <p class="footer__desc">Bringing authentic Japanese kitchenware to homes around the world. Every piece tells a story.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link"><i class="fab fa-pinterest"></i></a>
+            <a href="#" class="footer__social-link"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <a href="#">All Products</a>
+          <a href="#">Knives</a>
+          <a href="#">Cookware</a>
+          <a href="#">Tableware</a>
+          <a href="#">Tea Sets</a>
+        </div>
+        <div class="footer__links">
+          <h4>Support</h4>
+          <a href="#contact">Shipping Info</a>
+          <a href="#contact">Returns & Exchanges</a>
+          <a href="#contact">Care Guide</a>
+          <a href="#contact">FAQ</a>
+          <a href="#contact">Track Order</a>
+        </div>
+        <div class="footer__links">
+          <h4>Company</h4>
+          <a href="https://washokustore.example.com" target="_blank" rel="noopener">Website</a>
+          <a href="#story">Our Story</a>
+          <a href="#story">Craftsmanship</a>
+          <a href="#contact">Contact</a>
+          <a href="#contact">Careers</a>
+          <a href="#contact">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Washoku Store. All rights reserved. Made with ❤️ and lots of 🍵.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-chevron-up"></i></button>
+
+  <noscript><div style="padding:20px;text-align:center;background:#FFB7C5"><p>Please enable JavaScript to use Washoku Store.</p></div></noscript>
+  <script src="js/data.js" defer></script>
+  <script src="js/store.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
