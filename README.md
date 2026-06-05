@@ -26,6 +26,8 @@ https://chibahyousrachahinez-coder.github.io/washoku-store/
 *   **Icons & Fonts:** FontAwesome 6.5.0 along with Google Fonts integration (*Noto Serif JP*, *DM Sans*, *Shippori Mincho*).
 
 ---
+##screenshot
+https://github.com/user-attachments/assets/6221d02a-b27e-4345-a3ef-f68842d31ef7
 
 ## 📂 Project Structure
 
@@ -39,7 +41,7 @@ https://chibahyousrachahinez-coder.github.io/washoku-store/
     └── app.js        # DOM references, event listeners, and UI rendering logic
 
 
-https://github.com/user-attachments/assets/6221d02a-b27e-4345-a3ef-f68842d31ef7
+
 
 
 
