@@ -91,7 +91,7 @@ input, textarea { font: inherit; outline: none; border: none; }
 
 .section__tag::before,
 .section__tag::after {
-  content: 'â€”';
+  content: '—';
   margin: 0 8px;
   opacity: 0.5;
 }
@@ -964,7 +964,7 @@ input, textarea { font: inherit; outline: none; border: none; }
 }
 
 .home__title-emphasis::after {
-  content: 'ðŸŒ¸';
+  content: '🌸';
   font-size: 1.8rem;
   margin-left: 8px;
   -webkit-text-fill-color: initial;
@@ -1849,7 +1849,7 @@ input, textarea { font: inherit; outline: none; border: none; }
   }
 }
 
-/* Small phones (up to 480px) â€” overrides all above */
+/* Small phones (up to 480px) — overrides all above */
 @media (max-width: 480px) {
   .header { --header-height: 56px; }
   .nav__actions { gap: 2px; }
@@ -1962,7 +1962,7 @@ input, textarea { font: inherit; outline: none; border: none; }
   .notification { padding: 10px 14px; font-size: 0.8rem; top: 8px; right: 8px; left: 8px; }
 }
 
-/* Touch devices (no hover = phone/tablet) â€” bigger tap targets */
+/* Touch devices (no hover = phone/tablet) — bigger tap targets */
 @media (hover: none) and (pointer: coarse) {
   .nav__action-btn { width: 44px; height: 44px; }
   .product-card__wishlist { width: 40px; height: 40px; }
@@ -2014,13 +2014,13 @@ input, textarea { font: inherit; outline: none; border: none; }
 }
 
 /* ===== MOBILE FIRST GRID ===== */
-/* Ù‡Ø°Ø§ Ø§Ù„ÙƒÙˆØ¯ ÙŠØ·Ø¨Ù‚ Ø¹Ù„Ù‰ ÙƒÙ„ Ø§Ù„Ø´Ø§Ø´Ø§Øª (Mobile First) */
+/* هذا الكود يطبق على كل الشاشات (Mobile First) */
 .container-grid {
   display: grid;
   grid-template-columns: 1fr;
 }
 
-/* Ù‡Ø°Ø§ Ø§Ù„ÙƒÙˆØ¯ ÙŠØ·Ø¨Ù‚ ÙÙ‚Ø· Ø¥Ø°Ø§ ÙƒØ§Ù† Ø¹Ø±Ø¶ Ø§Ù„Ø´Ø§Ø´Ø© Ø£ÙƒØ¨Ø± Ù…Ù† 768px (Ø­Ø§Ø³ÙˆØ¨/ØªØ§Ø¨Ù„Øª) */
+/* هذا الكود يطبق فقط إذا كان عرض الشاشة أكبر من 768px (حاسوب/تابلت) */
 @media (min-width: 768px) {
   .container-grid {
     grid-template-columns: 1fr 1fr 1fr;
