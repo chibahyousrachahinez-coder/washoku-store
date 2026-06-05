@@ -46,11 +46,11 @@ function toggleWishlist(id) {
   const idx = state.wishlist.indexOf(id);
   if (idx > -1) {
     state.wishlist.splice(idx, 1);
-    if (typeof showToast === 'function') showToast('ðŸ’”', 'Removed from wishlist');
+    if (typeof showToast === 'function') showToast('💔', 'Removed from wishlist');
   } else {
     state.wishlist.push(id);
     const p = products.find(pr => pr.id === id);
-    if (typeof showToast === 'function') showToast('â¤ï¸', `${p ? p.name : 'Item'} added to wishlist!`);
+    if (typeof showToast === 'function') showToast('❤️', `${p ? p.name : 'Item'} added to wishlist!`);
   }
   saveState();
   if (typeof renderFeatured === 'function') renderFeatured();
