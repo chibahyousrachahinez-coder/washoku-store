@@ -1,4 +1,4 @@
-const products = [
+const defaultProducts = [
   { id: 1, name: 'Santoku Knife', jp: '三徳包丁', category: 'knives', price: 89.99, rating: 4.9, reviews: 128, icon: '🗡️', badge: 'Chef\'s Pick', badgeClass: 'badge--chef', description: 'The ultimate all-purpose Japanese chef\'s knife. Forged from high-carbon stainless steel with a 17-degree edge, the Santoku ("three virtues") excels at slicing, dicing, and mincing. Each knife is hand-sharpened by master craftsmen in Seki City, Gifu Prefecture.', options: ['15cm (Santoku)', '18cm (Gyuto)', '21cm (Chef)'], shipping: 'Free shipping • 2-3 weeks from Japan' },
   { id: 2, name: 'Matcha Whisk Set', jp: '茶筌', category: 'tea', price: 34.99, rating: 4.8, reviews: 94, icon: '🍵', badge: 'Handmade', badgeClass: 'badge--handmade', description: 'Hand-carved bamboo whisk (chasen) from Nara, Japan. Each whisk is meticulously shaped from a single piece of bamboo, creating 80-120 fine tines for the perfect matcha consistency. Includes a ceramic whisk holder.', options: ['80 tine (Usucha)', '120 tine (Koicha)'], shipping: 'Free shipping • 1-2 weeks from Japan' },
   { id: 3, name: 'Sushi Rice Bowl', jp: '丼鉢', category: 'tableware', price: 24.99, rating: 4.7, reviews: 215, icon: '🍚', badge: 'Bestseller', badgeClass: 'badge--new', description: 'Handcrafted ceramic donburi bowl from the Mashiko pottery region. Each bowl is thrown on a wheel and glazed with a signature rice-husk ash glaze, creating a unique pattern. Microwave and dishwasher safe.', options: ['Small (12cm)', 'Medium (15cm)', 'Large (18cm)'], shipping: 'Free shipping • 1-2 weeks from Japan' },
@@ -12,6 +12,30 @@ const products = [
   { id: 11, name: 'Bamboo Steamer', jp: '蒸し籠', category: 'cookware', price: 38.99, rating: 4.6, reviews: 57, icon: '🎋', badge: 'Handmade', badgeClass: 'badge--handmade', description: 'Traditional woven bamboo steamer from Takeo, known for its bamboo craftsmanship since the Edo period. The tight weave allows steam to circulate evenly while infusing a subtle bamboo fragrance. Use for dim sum, vegetables, and buns.', options: ['20cm (Small)', '26cm (Medium)', '30cm (Large)'], shipping: 'Free shipping • 1-2 weeks from Japan' },
   { id: 12, name: 'Ramen Ladle', jp: 'お玉杓子', category: 'accessories', price: 18.99, rating: 4.4, reviews: 39, icon: '🥄', badge: null, badgeClass: null, description: 'Hand-formed stainless steel ladle with a hand-carved wooden handle. The deep bowl is perfect for serving ramen broth, while the pointed lip allows precise pouring. Made in the Tsubame-Sanjo metalworking region.', options: ['Standard'], shipping: 'Free shipping • 1-2 weeks from Japan' },
 ];
+
+const STORAGE_KEY = 'washoku_products';
+let products = [];
+
+function getProducts() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored) {
+    try { return JSON.parse(stored); } catch (_) {}
+  }
+  return defaultProducts;
+}
+
+function saveProducts(arr) {
+  products = arr;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+}
+
+function loadProducts() {
+  products = getProducts();
+  if (!localStorage.getItem(STORAGE_KEY)) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultProducts));
+  }
+}
+loadProducts();
 
 const reviews = [
   { id: 1, name: 'Sarah M.', avatar: '👩', rating: 5, text: 'The Santoku knife is incredible. It arrived sharp enough to slice through paper. I\'ve never enjoyed cooking as much as I do now.', date: 'March 2026', product: 'Santoku Knife' },
