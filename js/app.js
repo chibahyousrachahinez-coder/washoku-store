@@ -49,7 +49,7 @@ function productCardHTML(product, inWishlist = false) {
       <div class="product-card__image">
         ${badgeHTML}
         <button class="product-card__wishlist ${wishClass}" data-id="${product.id}"><i class="fa${inWishlist ? 's' : 'r'} fa-heart"></i></button>
-        <span>${product.icon}</span>
+        ${product.imageUrl ? `<img src="${product.imageUrl}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">` : `<span>${product.icon}</span>`}
       </div>
       <div class="product-card__body">
         <h4 class="product-card__name">${product.name}</h4>
@@ -195,7 +195,7 @@ function openProductModal(id) {
     </div>` : '';
   const body = $('#productModalBody');
   body.innerHTML = `
-    <div class="product-modal__image">${p.icon}</div>
+    <div class="product-modal__image">${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}" style="width:100%;height:auto;max-height:300px;object-fit:cover;border-radius:12px">` : p.icon}</div>
     <div class="product-modal__info">
       ${badgeHTML}
       <h2>${p.name}</h2>
