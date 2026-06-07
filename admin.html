@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Washoku Store — Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Noto+Serif+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      padding: 2rem 1rem;
+    }
+    .admin-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .admin-header h1 {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+    }
+    .admin-header h1 span {
+      color: var(--color-matcha);
+    }
+    .admin-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .admin-links a {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .admin-links a:first-child {
+      background: var(--color-matcha);
+      color: #fff;
+    }
+    .admin-links a:last-child {
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+    .admin-links a:hover {
+      opacity: 0.8;
+    }
+    .admin-form-card {
+      background: var(--color-card);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: 0 4px 24px var(--color-shadow);
+      margin-bottom: 2rem;
+    }
+    .admin-form-card h2 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .admin-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .admin-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .admin-form-group.full {
+      grid-column: 1 / -1;
+    }
+    .admin-form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-light);
+    }
+    .admin-form-group input,
+    .admin-form-group select {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      background: var(--color-bg);
+      color: var(--color-text);
+      transition: border var(--transition);
+    }
+    .admin-form-group input:focus,
+    .admin-form-group select:focus {
+      outline: none;
+      border-color: var(--color-matcha);
+    }
+    .admin-form-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .btn--add {
+      background: var(--color-matcha);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-size: 0.9rem;
+    }
+    .btn--add:hover {
+      background: var(--color-matcha-dark);
+    }
+    .btn--reset {
+      background: transparent;
+      color: var(--color-text-light);
+      border: 1px solid var(--color-border);
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-size: 0.9rem;
+    }
+    .btn--reset:hover {
+      border-color: var(--color-text);
+    }
+    .admin-table-wrap {
+      background: var(--color-card);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 24px var(--color-shadow);
+      overflow-x: auto;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .admin-table th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.7rem;
+      color: var(--color-text-light);
+      border-bottom: 2px solid var(--color-border);
+      background: var(--color-bg);
+    }
+    .admin-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: middle;
+    }
+    .admin-table tr:last-child td {
+      border-bottom: none;
+    }
+    .admin-table .product-preview {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      background: var(--color-bg);
+    }
+    .admin-table .product-preview img {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .admin-table .name-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .admin-table .name-cell .info small {
+      display: block;
+      color: var(--color-text-light);
+      font-size: 0.75rem;
+    }
+    .admin-table .price-cell {
+      font-weight: 600;
+      color: var(--color-matcha);
+    }
+    .admin-table .cat-cell {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: capitalize;
+      background: rgba(143, 175, 110, 0.15);
+      color: var(--color-matcha-dark);
+    }
+    .btn--delete {
+      background: none;
+      border: 1px solid rgba(255, 100, 100, 0.3);
+      color: #ff6b6b;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all var(--transition);
+    }
+    .btn--delete:hover {
+      background: #ff6b6b;
+      color: #fff;
+    }
+    .admin-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--color-text-light);
+    }
+    .admin-empty i {
+      font-size: 2.5rem;
+      opacity: 0.3;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .admin-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--color-matcha);
+      color: #fff;
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 20px rgba(143, 175, 110, 0.4);
+      transform: translateY(120%);
+      transition: transform 0.4s ease;
+      z-index: 1000;
+    }
+    .admin-notification.show {
+      transform: translateY(0);
+    }
+    @media (max-width: 640px) {
+      .admin-form-row {
+        grid-template-columns: 1fr;
+      }
+      .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body class="admin-body">
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>🥢 <span>Washoku</span> Admin</h1>
+      <div class="admin-links">
+        <a href="index.html"><i class="fas fa-store"></i> View Store</a>
+        <a href="admin.html"><i class="fas fa-sync-alt"></i> Refresh</a>
+      </div>
+    </div>
+
+    <div class="admin-form-card">
+      <h2><i class="fas fa-plus-circle" style="color:var(--color-matcha)"></i> Add New Product</h2>
+      <form id="adminForm">
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" placeholder="e.g. Santoku Knife" required>
+          </div>
+          <div class="admin-form-group">
+            <label for="productPrice">Price ($)</label>
+            <input type="number" id="productPrice" placeholder="e.g. 49.99" step="0.01" min="0" required>
+          </div>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="productImage">Image URL</label>
+            <input type="url" id="productImage" placeholder="https://example.com/knife.jpg">
+          </div>
+          <div class="admin-form-group">
+            <label for="productCategory">Category</label>
+            <select id="productCategory" required>
+              <option value="">— Select —</option>
+              <option value="knives">Knives</option>
+              <option value="cookware">Cookware</option>
+              <option value="tableware">Tableware</option>
+              <option value="tea">Tea Sets</option>
+              <option value="accessories">Accessories</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-form-actions">
+          <button type="submit" class="btn--add"><i class="fas fa-save"></i> Save Product</button>
+          <button type="reset" class="btn--reset"><i class="fas fa-undo"></i> Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th style="text-align:center">Action</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+      <div class="admin-empty" id="adminEmpty">
+        <i class="fas fa-box-open"></i>
+        <p>No products yet. Add your first product above!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-notification" id="adminNotif"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
